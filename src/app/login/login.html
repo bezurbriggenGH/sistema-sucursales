@@ -1,0 +1,27 @@
+<section class="login-container">
+  <form class="login-card" (ngSubmit)="ingresar()" (keydown.enter)="$event.preventDefault(); ingresar()">
+    <div class="login-icon">
+      <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
+    <h2>Iniciar sesión</h2>
+    <p class="sub">Ingresá para ver clientes y ventas. Los administradores además pueden modificar datos.</p>
+
+    <label>
+      Usuario
+      <input name="usuario" [(ngModel)]="usuario" autocomplete="username" required autofocus />
+    </label>
+
+    <label>
+      Contraseña
+      <input name="clave" type="password" [(ngModel)]="clave" autocomplete="current-password" required />
+    </label>
+
+    @if (error()) {
+      <div class="error">{{ error() }}</div>
+    }
+
+    <button type="submit" [disabled]="enviando()">
+      {{ enviando() ? 'Verificando…' : 'Ingresar' }}
+    </button>
+  </form>
+</section>

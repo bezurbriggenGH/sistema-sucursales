@@ -1,0 +1,179 @@
+/* Contenedor Principal */
+.branches-container {
+  padding: 2.5rem 1.5rem;
+  color: var(--text);
+}
+
+/* Encabezado */
+.branches-header {
+  margin-bottom: 2.5rem;
+}
+
+.branches-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-dark);
+}
+
+.branches-header p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Grid de Tarjetas */
+.branches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Tarjeta de Sucursal */
+.branch-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.branch-card:hover {
+  border-color: var(--accent);
+}
+
+/* Ubicación */
+.branch-info {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-top: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  font-size: 1.4rem;
+  color: var(--accent);
+  background-color: rgba(91, 141, 239, 0.12);
+  border-radius: 10px;
+}
+
+.info-text h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.2rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.info-text .address {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Empleados */
+.branch-meta {
+  border-top: 1px dashed var(--border);
+  padding-top: 1rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.meta-icon {
+  display: flex;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+.meta-label {
+  color: var(--text-muted);
+}
+
+.meta-value {
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+/* Mensajes */
+.aviso, .ok, .error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+.aviso { background: rgba(91, 141, 239, 0.1); color: var(--accent); }
+.aviso a { color: var(--accent); font-weight: 600; }
+.ok { background: rgba(52, 211, 153, 0.12); color: var(--green); }
+.error { background: rgba(248, 113, 113, 0.12); color: var(--red); }
+.cargando { color: var(--text-muted); }
+
+/* Edición (administrador) */
+.btn-edit {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  padding: 0.4rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.btn-edit:hover { color: var(--accent); border-color: var(--accent); }
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.edit-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.edit-form input {
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+.edit-form input:focus { outline: none; border-color: var(--accent); }
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+.btn-pri, .btn-sec {
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.btn-pri { border: none; background: var(--accent); color: #fff; }
+.btn-sec { border: 1px solid var(--border); background: transparent; color: var(--text-muted); }

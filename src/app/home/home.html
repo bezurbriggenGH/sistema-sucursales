@@ -1,0 +1,51 @@
+<section class="hero-container">
+  <div class="hero-content">
+    <h1>Panel de Control</h1>
+    <p>Gestiona tus ventas, sucursales y clientes desde una sola interfaz moderna, rápida y eficiente.</p>
+
+    <div class="features-grid">
+      <a [routerLink]="ruta('/ventas', 1)">
+        <div class="feature-card ventas" [class.bloqueada]="categoria() < 1">
+          @if (categoria() < 1) { <span class="candado"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span> }
+          <div class="icon">
+            <svg class="ico" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <h3>Ventas</h3>
+          <p>Monitorea ingresos y transacciones en tiempo real.</p>
+        </div>
+      </a>
+
+      <a routerLink="/sucursales">
+        <div class="feature-card sucursales">
+          <div class="icon">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+          </div>
+          <h3>Sucursales</h3>
+          <p>Administra ubicaciones y personal disponible.</p>
+        </div>
+      </a>
+
+      <a [routerLink]="ruta('/clientes', 1)">
+        <div class="feature-card clientes" [class.bloqueada]="categoria() < 1">
+          @if (categoria() < 1) { <span class="candado"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span> }
+          <div class="icon">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Clientes</h3>
+          <p>Fideliza y organiza tu base de datos de clientes.</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="roles">
+      <h4>Niveles de acceso</h4>
+      @for (r of roles; track r.nivel) {
+        <div class="rol" [class.actual]="r.nivel === categoria()">
+          <span class="rol-nombre">{{ r.nombre }}</span>
+          <span class="rol-detalle">{{ r.detalle }}</span>
+          @if (r.nivel === categoria()) { <span class="rol-tag">Vos</span> }
+        </div>
+      }
+    </div>
+  </div>
+</section>

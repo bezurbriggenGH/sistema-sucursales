@@ -1,0 +1,135 @@
+<section class="sales-dashboard">
+  <div class="dashboard-header">
+    <div>
+      <h2>Análisis de Ventas por Sucursal</h2>
+      <p>Total facturado por mes en cada sede, calculado desde las facturas de la base de datos.</p>
+    </div>
+    @if (info(); as v) {
+      <label class="selector-anio">
+        Año
+        <select (change)="cambiarAnio($event)">
+          @for (a of v.anios; track a) {
+            <option [value]="a" [selected]="a === v.anio">{{ a }}</option>
+          }
+        </select>
+      </label>
+    }
+  </div>
+
+  @if (error()) {
+    <div class="error">{{ error() }}</div>
+  }
+  @if (cargando() && !info()) {
+    <p class="cargando">Cargando ventas…</p>
+  }
+
+  @if (info(); as v) {
+    <!-- Resumen -->
+    <div class="resumen">
+      <div class="card kpi">
+        <span>Total {{ v.anio }}</span>
+        <strong>{{ pesos(totalAnio()) }}</strong>
+      </div>
+      @for (nombre of v.sucursales; track nombre; let s = $index) {
+        <div class="card kpi">
+          <span><i class="punto" [style.background]="color(s)"></i>{{ nombre }}</span>
+          <strong>{{ pesos(totalesSucursal()[s]) }}</strong>
+        </div>
+      }
+    </div>
+
+    <!-- Tabla -->
+    <div class="card table-card">
+      <div class="table-responsive">
+        <table>
+          <caption>Ventas mensuales {{ v.anio }}</caption>
+          <thead>
+            <tr>
+              <th>Mes</th>
+              @for (nombre of v.sucursales; track nombre) {
+                <th class="num">{{ nombre }}</th>
+              }
+              <th class="num">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (fila of v.ventas; track $index; let m = $index) {
+              <tr>
+                <td>{{ meses[m] }}</td>
+                @for (valor of fila; track $index) {
+                  <td class="num">{{ pesos(valor) }}</td>
+                }
+                <td class="num total">{{ pesos(totalesMes()[m]) }}</td>
+              </tr>
+            }
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>Total</td>
+              @for (t of totalesSucursal(); track $index) {
+                <td class="num">{{ pesos(t) }}</td>
+              }
+              <td class="num">{{ pesos(totalAnio()) }}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- Leyenda -->
+    <div class="leyenda">
+      @for (nombre of v.sucursales; track nombre; let s = $index) {
+        <span><i class="punto" [style.background]="color(s)"></i>{{ nombre }}</span>
+      }
+    </div>
+
+    <div class="charts-grid">
+      <!-- Gráfico de Líneas -->
+      <div class="card chart-card">
+        <h3>
+          <svg class="ico" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          Tendencia Mensual (Líneas)
+        </h3>
+        <div class="svg-container">
+          <svg viewBox="0 0 600 300" preserveAspectRatio="xMidYMid meet">
+            @for (marca of ejeLineas(); track $index) {
+              <line class="guia" [attr.x1]="izq" [attr.x2]="der" [attr.y1]="marca.y" [attr.y2]="marca.y" />
+              <text class="eje" [attr.x]="izq - 6" [attr.y]="marca.y + 3" text-anchor="end">{{ marca.texto }}</text>
+            }
+            @for (mes of meses; track mes; let m = $index) {
+              <text class="eje" [attr.x]="xMes(m)" [attr.y]="alto - 6" text-anchor="middle">{{ mes }}</text>
+            }
+            @for (l of lineas(); track l.nombre) {
+              <polyline [attr.points]="l.puntos" fill="none" [attr.stroke]="l.color" stroke-width="2.5"
+                stroke-linejoin="round" stroke-linecap="round" />
+            }
+          </svg>
+        </div>
+      </div>
+
+      <!-- Gráfico de Barras -->
+      <div class="card chart-card">
+        <h3>
+          <svg class="ico" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+          Distribución Acumulada (Barras Apiladas)
+        </h3>
+        <div class="svg-container">
+          <svg viewBox="0 0 600 300" preserveAspectRatio="xMidYMid meet">
+            @for (marca of ejeBarras(); track $index) {
+              <line class="guia" [attr.x1]="izq" [attr.x2]="der" [attr.y1]="marca.y" [attr.y2]="marca.y" />
+              <text class="eje" [attr.x]="izq - 6" [attr.y]="marca.y + 3" text-anchor="end">{{ marca.texto }}</text>
+            }
+            @for (b of barras(); track $index) {
+              <rect [attr.x]="b.x" [attr.y]="b.y" [attr.width]="b.w" [attr.height]="b.h" [attr.fill]="b.color">
+                <title>{{ b.titulo }}</title>
+              </rect>
+            }
+            @for (mes of meses; track mes; let m = $index) {
+              <text class="eje" [attr.x]="xMesBarra(m)" [attr.y]="alto - 6" text-anchor="middle">{{ mes }}</text>
+            }
+          </svg>
+        </div>
+      </div>
+    </div>
+  }
+</section>

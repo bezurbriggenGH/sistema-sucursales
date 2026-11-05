@@ -1,0 +1,106 @@
+<section class="facturas-container">
+  <div class="facturas-header">
+    <h2>Facturas</h2>
+    <p>Consultá las facturas emitidas por sucursal, cliente, estado y fecha.</p>
+  </div>
+
+  <!-- Filtros -->
+  <form class="filtros" (ngSubmit)="aplicar()">
+    <label>Estado
+      <select name="estado" [(ngModel)]="filtro.estado">
+        <option value="">Todos</option>
+        @for (e of estados; track e) { <option [value]="e">{{ e }}</option> }
+      </select>
+    </label>
+    <label>Sucursal
+      <select name="sucursal" [(ngModel)]="filtro.sucursal">
+        <option value="">Todas</option>
+        @for (s of sucursales(); track s.idSucursal) { <option [value]="s.idSucursal">{{ s.nombre }}</option> }
+      </select>
+    </label>
+    <label>Cliente
+      <select name="cliente" [(ngModel)]="filtro.cliente">
+        <option value="">Todos</option>
+        @for (c of clientes(); track c.idCliente) { <option [value]="c.idCliente">{{ c.apellido }}, {{ c.nombre }}</option> }
+      </select>
+    </label>
+    <label>Desde <input type="date" name="desde" [(ngModel)]="filtro.desde" /></label>
+    <label>Hasta <input type="date" name="hasta" [(ngModel)]="filtro.hasta" /></label>
+    <div class="filtros-acciones">
+      @if (hayFiltros()) {
+        <button type="button" class="btn-sec" (click)="limpiar()">Limpiar</button>
+      }
+      <button type="submit" class="btn-pri">Filtrar</button>
+    </div>
+  </form>
+
+  @if (mensaje()) { <div class="ok">{{ mensaje() }}</div> }
+  @if (error()) { <div class="error">{{ error() }}</div> }
+
+  @if (pagina(); as p) {
+    <!-- Resumen por estado (clic para filtrar) -->
+    <div class="resumen">
+      <div class="kpi">
+        <span>Total filtrado</span>
+        <strong>{{ pesos(importeTotal()) }}</strong>
+        <small>{{ p.total.toLocaleString('es-AR') }} facturas</small>
+      </div>
+      @for (e of estados; track e) {
+        <button type="button" class="kpi estado-{{ e }}" [class.activo]="filtro.estado === e" (click)="filtrarEstado(e)">
+          <span><i class="punto"></i>{{ e }}</span>
+          <strong>{{ pesos(p.resumen[e].importe) }}</strong>
+          <small>{{ p.resumen[e].cantidad.toLocaleString('es-AR') }} facturas</small>
+        </button>
+      }
+    </div>
+
+    <!-- Tabla -->
+    <div class="table-responsive" [class.cargando]="cargando()">
+      <table>
+        <thead>
+          <tr>
+            <th>N°</th>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Sucursal</th>
+            <th class="num">Importe</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (f of p.facturas; track f.NroFactura) {
+            <tr>
+              <td class="mono">{{ f.NroFactura }}</td>
+              <td class="mono">{{ fecha(f.FechaFactura) }}</td>
+              <td>{{ f.cliente }}</td>
+              <td>{{ f.sucursal }}</td>
+              <td class="num">{{ pesos(f.Importe) }}</td>
+              <td>
+                @if (esAdmin()) {
+                  <select class="estado-select estado-{{ f.Estado }}" [value]="f.Estado" (change)="cambiarEstado(f, $event)" title="Cambiar estado">
+                    @for (e of estados; track e) { <option [value]="e" [selected]="e === f.Estado">{{ e }}</option> }
+                  </select>
+                } @else {
+                  <span class="estado-badge estado-{{ f.Estado }}">{{ f.Estado }}</span>
+                }
+              </td>
+            </tr>
+          } @empty {
+            <tr><td colspan="6" class="vacio">No hay facturas con esos filtros.</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginado -->
+    @if (p.paginas > 1) {
+      <div class="paginado">
+        <button class="btn-sec" [disabled]="p.pagina <= 1" (click)="irAPagina(p.pagina - 1)">Anterior</button>
+        <span>Página {{ p.pagina }} de {{ p.paginas }}</span>
+        <button class="btn-sec" [disabled]="p.pagina >= p.paginas" (click)="irAPagina(p.pagina + 1)">Siguiente</button>
+      </div>
+    }
+  } @else if (cargando()) {
+    <p class="texto-muted">Cargando facturas…</p>
+  }
+</section>

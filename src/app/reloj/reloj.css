@@ -1,0 +1,13 @@
+.reloj {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+}
