@@ -1,7 +1,6 @@
 /* Header */
 .main-header {
-  background-color: rgba(20, 20, 25, 0.85);
-  backdrop-filter: blur(8px);
+  background-color: var(--bg);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -24,22 +23,18 @@
   gap: 0.75rem;
 }
 
-.brand-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  color: var(--accent);
-  background: rgba(91, 141, 239, 0.12);
-  border: 1px solid rgba(91, 141, 239, 0.3);
+.brand-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  user-select: none;
 }
 
 .brand h1 {
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0;
   color: var(--text-dark);
   white-space: nowrap;
@@ -57,7 +52,7 @@
   padding: 0.6rem 1rem;
   font-size: 0.95rem;
   font-weight: 500;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -68,7 +63,7 @@
 }
 
 .active-link {
-  background-color: rgba(91, 141, 239, 0.15) !important;
+  background-color: var(--accent-bg) !important;
   color: var(--accent) !important;
   font-weight: 600;
 }
@@ -85,16 +80,12 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.3rem 0.75rem;
-  border-radius: 8px;
-  background: rgba(91, 141, 239, 0.1);
-  border: 1px solid rgba(91, 141, 239, 0.3);
-  color: var(--accent);
+  border-radius: 6px;
+  color: var(--text-muted);
   font-size: 1.1rem;
 }
 
 .user-chip.admin {
-  background: rgba(91, 141, 239, 0.1);
-  border-color: rgba(91, 141, 239, 0.35);
   color: var(--accent);
 }
 
@@ -119,7 +110,7 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 600;
@@ -129,7 +120,7 @@
 .btn-ingresar {
   padding: 0.5rem 0.9rem;
   border: none;
-  color: #fff;
+  color: var(--bg);
   background: var(--accent);
 }
 

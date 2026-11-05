@@ -14,7 +14,7 @@
 
 .facturas-header h2 {
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0 0 0.5rem 0;
   color: var(--text-dark);
 }
@@ -35,7 +35,7 @@
   margin-bottom: 1.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .filtros label {
@@ -78,19 +78,19 @@
   cursor: pointer;
 }
 
-.btn-pri { border: none; background: var(--accent); color: #fff; }
+.btn-pri { border: none; background: var(--accent); color: var(--bg); }
 .btn-sec { border: 1px solid var(--border); background: transparent; color: var(--text); }
 .btn-sec:disabled { opacity: 0.4; cursor: not-allowed; }
 
 /* Mensajes */
 .ok, .error {
   padding: 0.75rem 1rem;
-  border-radius: 8px;
+  border-radius: 6px;
   margin-bottom: 1.5rem;
   font-size: 0.9rem;
 }
-.ok { background: rgba(79, 163, 122, 0.12); color: var(--green); }
-.error { background: rgba(208, 100, 92, 0.12); color: var(--red); }
+.ok { background: var(--green-bg); color: var(--green); }
+.error { background: var(--red-bg); color: var(--red); }
 
 /* Resumen */
 .resumen {
@@ -108,7 +108,7 @@
   text-align: left;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 6px;
   color: var(--text);
   font-family: inherit;
 }
@@ -151,7 +151,7 @@ button.kpi.activo {
 }
 
 .estado-Pagado { --estado: var(--green); }
-.estado-Pendiente { --estado: #d9a441; }
+.estado-Pendiente { --estado: var(--amber); }
 .estado-Atrasado { --estado: var(--red); }
 
 .kpi .punto { background: var(--estado); }
@@ -187,7 +187,7 @@ button.kpi.activo {
   overflow-x: auto;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 6px;
   transition: opacity 0.15s;
 }
 
@@ -264,7 +264,7 @@ tbody tr:hover {
   margin-bottom: 1.5rem;
   background: var(--surface);
   border: 1px solid var(--accent);
-  border-radius: 8px;
+  border-radius: 6px;
 }
 .nueva-factura h3 {
   margin: 0 0 1rem 0;

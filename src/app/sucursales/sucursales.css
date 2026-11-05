@@ -16,7 +16,7 @@
 
 .branches-header h2 {
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0 0 0.5rem 0;
   color: var(--text-dark);
 }
@@ -38,10 +38,10 @@
 .branch-card {
   background-color: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 1.5rem;
   position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: border-color 0.2s ease;
   display: flex;
   flex-direction: column;
 }
@@ -63,19 +63,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 28px;
+  height: 28px;
   font-size: 1.4rem;
-  color: var(--accent);
-  background-color: rgba(91, 141, 239, 0.12);
-  border-radius: 10px;
+  color: var(--text-muted);
+  border-radius: 6px;
 }
 
 .info-text h3 {
   margin: 0 0 0.25rem 0;
   font-size: 1.2rem;
   color: var(--accent);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .info-text .address {
@@ -119,14 +118,14 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  border-radius: 10px;
+  border-radius: 6px;
   margin-bottom: 1.5rem;
   font-size: 0.9rem;
 }
-.aviso { background: rgba(91, 141, 239, 0.1); color: var(--accent); }
+.aviso { background: var(--accent-bg); color: var(--accent); }
 .aviso a { color: var(--accent); font-weight: 600; }
-.ok { background: rgba(52, 211, 153, 0.12); color: var(--green); }
-.error { background: rgba(248, 113, 113, 0.12); color: var(--red); }
+.ok { background: var(--green-bg); color: var(--green); }
+.error { background: var(--red-bg); color: var(--red); }
 .cargando { color: var(--text-muted); }
 
 /* Edición (administrador) */
@@ -141,7 +140,7 @@
   display: flex;
   padding: 0.4rem;
   font-size: 1rem;
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text-muted);
@@ -163,7 +162,7 @@
 }
 .edit-form input {
   padding: 0.5rem 0.65rem;
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text);
@@ -179,12 +178,12 @@
 }
 .btn-pri, .btn-sec {
   padding: 0.5rem 0.9rem;
-  border-radius: 8px;
+  border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
   font-size: 0.85rem;
 }
-.btn-pri { border: none; background: var(--accent); color: #fff; }
+.btn-pri { border: none; background: var(--accent); color: var(--bg); }
 .btn-sec { border: 1px solid var(--border); background: transparent; color: var(--text-muted); }
 
 .btn-edit.peligro:hover { color: var(--red); border-color: var(--red); }
@@ -204,10 +203,10 @@
   gap: 0.5rem;
   padding: 0.6rem 1rem;
   border: none;
-  border-radius: 8px;
-  font-weight: 700;
+  border-radius: 6px;
+  font-weight: 600;
   font-size: 0.9rem;
-  color: #fff;
+  color: var(--bg);
   background: var(--accent);
   cursor: pointer;
 }

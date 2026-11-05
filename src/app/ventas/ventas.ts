@@ -25,7 +25,7 @@ export class Ventas implements OnInit {
   error = signal('');
 
   meses = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
-  colores = ['#5b8def', '#d9a441', '#4fa37a', '#a77bca', '#d0645c'];
+  colores = ['#d4af6a', '#8fa3bf', '#8bb596', '#a996bd', '#d08c82', '#7fb3b5', '#c49a78', '#a3a88a'];
   pesos = formatoPesos;
 
   readonly alto = ALTO;

@@ -1,4 +1,4 @@
-# Sistema de Sucursales — Proyecto de Benjamin Zurbriggen
+# Sistema de Sucursales — BenZurb's Project
 
 Sistema web para consultar las sucursales, los clientes, las ventas y las facturas de una empresa.
 El frontend está hecho en **Angular** y consulta una base de datos **MySQL** a través de servicios en **PHP**.

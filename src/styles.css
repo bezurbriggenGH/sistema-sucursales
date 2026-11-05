@@ -1,16 +1,23 @@
-/* Tema oscuro global */
+/* Tema oscuro mate */
 :root {
-  --bg: #0f1012;
-  --surface: #17191c;
-  --surface-2: #1e2125;
-  --border: #2b2f34;
-  --text: #d6d9de;
-  --text-muted: #8b9099;
-  --text-dark: #f1f2f4;
-  --accent: #5b8def;
-  --accent-bg: rgba(91, 141, 239, 0.12);
-  --green: #4fa37a;
-  --red: #d0645c;
+  --bg: #0c0c0d;
+  --surface: #151517;
+  --surface-2: #1c1c1f;
+  --border: #29292d;
+  --text: #d6d6d9;
+  --text-muted: #8d8e93;
+  --text-dark: #f2f2f3;
+
+  /* Dorado mate como acento */
+  --accent: #d4af6a;
+  --accent-bg: rgba(212, 175, 106, 0.12);
+  --green: #8bb596;
+  --green-bg: rgba(139, 181, 150, 0.12);
+  --red: #d08c82;
+  --red-bg: rgba(208, 140, 130, 0.12);
+  --amber: #d0935f;
+  --amber-bg: rgba(208, 147, 95, 0.12);
+
   color-scheme: dark;
 }
 
@@ -20,6 +27,12 @@ html, body {
   background-color: var(--bg);
   color: var(--text);
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent-bg);
+  color: var(--text-dark);
 }
 
 /* Iconos SVG */
@@ -28,7 +41,7 @@ html, body {
   height: 1em;
   fill: none;
   stroke: currentColor;
-  stroke-width: 2;
+  stroke-width: 1.75;
   stroke-linecap: round;
   stroke-linejoin: round;
   flex-shrink: 0;

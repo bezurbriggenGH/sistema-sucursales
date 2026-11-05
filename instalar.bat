@@ -6,7 +6,7 @@ set XAMPP=C:\xampp
 set MYSQL=%XAMPP%\mysql\bin\mysql.exe
 
 echo ================================================
-echo   Instalador - Proyecto de Benjamin Zurbriggen
+echo   Instalador - BenZurb's Project
 echo ================================================
 echo.
 
