@@ -13,6 +13,38 @@
   text-align: center;
 }
 
+/* Título con un personaje a cada lado */
+.hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-texto {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero-texto p {
+  margin-bottom: 0;
+}
+
+.personaje {
+  width: 200px;
+  height: auto;
+  flex-shrink: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+@media (max-width: 860px) {
+  .personaje {
+    display: none;
+  }
+}
+
 h1 {
   font-size: 2.25rem;
   font-weight: 700;

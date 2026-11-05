@@ -54,6 +54,14 @@ export interface Factura {
   sucursal: string;
 }
 
+export interface NuevaFactura {
+  fecha: string;
+  idCliente: number | string;
+  idSucursal: number | string;
+  importe: number | string;
+  estado: EstadoFactura;
+}
+
 export interface FiltroFacturas {
   estado?: string;
   sucursal?: number | string;
@@ -123,6 +131,22 @@ export class DatosService {
 
   cambiarEstadoFactura(nroFactura: number, estado: EstadoFactura) {
     return this.http.post(`${API_URL}Cambiar_Estado_Factura.php`, { nroFactura, estado }, OPCIONES);
+  }
+
+  altaFactura(factura: NuevaFactura) {
+    return this.http.post(`${API_URL}Alta_Factura.php`, factura, OPCIONES);
+  }
+
+  bajaFactura(nroFactura: number) {
+    return this.http.get(`${API_URL}Baja_Factura.php?nro=${nroFactura}`, OPCIONES);
+  }
+
+  altaSucursal(sucursal: Omit<Sucursal, 'idSucursal'>) {
+    return this.http.post(`${API_URL}Alta_Sucursal.php`, sucursal, OPCIONES);
+  }
+
+  bajaSucursal(idSucursal: number) {
+    return this.http.get(`${API_URL}Baja_Sucursal.php?id=${idSucursal}`, OPCIONES);
   }
 
   modificarSucursal(sucursal: Sucursal) {

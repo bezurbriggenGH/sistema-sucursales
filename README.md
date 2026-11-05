@@ -13,12 +13,12 @@ Tiene login con tres niveles de usuario, y cada uno ve distintas opciones del me
 |---|---|
 | Invitado (sin login) | Ver el inicio y la lista de sucursales |
 | Usuario | Además: clientes, ventas con gráficos y el personal de cada sucursal |
-| Administrador | Además: facturas (y cambiar su estado), alta / baja / modificación de clientes y edición de sucursales |
+| Administrador | Además: facturas (crear, borrar y cambiar su estado), y alta / baja / modificación de clientes y sucursales |
 
-- **Sucursales:** datos de cada sede. El administrador puede editarlas.
+- **Sucursales:** datos de cada sede. El administrador puede agregarlas, editarlas y borrarlas (si no tienen facturas).
 - **Clientes:** situación fiscal, DNI, cantidad de facturas y deuda (facturas no pagadas). Tiene buscador.
 - **Ventas:** total facturado por mes y por sucursal, con tabla, resumen y gráficos de líneas y barras apiladas. Se puede elegir el año.
-- **Facturas** (solo administrador): listado con filtros por estado, sucursal, cliente y fechas, resumen por estado y paginado.
+- **Facturas** (solo administrador): listado con filtros por estado, sucursal, cliente y fechas, resumen por estado y paginado. Se pueden crear (el IVA se calcula solo), borrar y cambiar de estado.
 
 Los permisos se controlan en Angular (menú y rutas) y también en cada PHP, así que no se pueden saltear llamando al servicio directamente.
 
@@ -45,7 +45,9 @@ P2-Angular/
 │   ├── conexion.php        Conexión a la base y control de permisos
 │   ├── Login.php  Sesion.php  Logout.php
 │   ├── Get_Sucus.php  Get_Clientes.php  Get_Ventas.php  Get_Facturas.php
-│   └── Alta_Cliente.php  Modificar_Cliente.php  Baja_Cliente.php  Modificar_Sucursal.php  Cambiar_Estado_Factura.php
+│   ├── Alta_Cliente.php  Modificar_Cliente.php  Baja_Cliente.php
+│   ├── Alta_Sucursal.php  Modificar_Sucursal.php  Baja_Sucursal.php
+│   └── Alta_Factura.php  Baja_Factura.php  Cambiar_Estado_Factura.php
 ├── database/bdfacturas.sql Base de datos completa (tablas y datos)
 ├── xampp-web/              Versión ya compilada de la página, para usar solo con XAMPP
 └── instalar.bat            Instalador para Windows

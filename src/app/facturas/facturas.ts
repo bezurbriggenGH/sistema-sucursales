@@ -2,7 +2,7 @@ import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-  Cliente, DatosService, ESTADOS_FACTURA, EstadoFactura, Factura, FiltroFacturas,
+  Cliente, DatosService, ESTADOS_FACTURA, EstadoFactura, Factura, FiltroFacturas, NuevaFactura,
   PaginaFacturas, Sucursal, formatoPesos, mensajeDeError,
 } from '../servicios/datos.service';
 import { AuthService } from '../servicios/auth.service';
@@ -106,6 +106,54 @@ export class Facturas implements OnInit {
     this.datos.cambiarEstadoFactura(f.NroFactura, estado).subscribe({
       next: () => {
         this.mensaje.set(`Factura ${f.NroFactura} marcada como ${estado}`);
+        this.cargar(this.pagina()?.pagina ?? 1);
+      },
+      error: (e) => this.error.set(mensajeDeError(e)),
+    });
+  }
+
+  // --- Nueva factura ---
+  formAbierto = signal(false);
+  nueva: NuevaFactura = this.facturaVacia();
+
+  private facturaVacia(): NuevaFactura {
+    return { fecha: new Date().toISOString().slice(0, 10), idCliente: '', idSucursal: '', importe: '', estado: 'Pendiente' };
+  }
+
+  abrirForm(): void {
+    this.nueva = this.facturaVacia();
+    this.mensaje.set('');
+    this.error.set('');
+    this.formAbierto.set(true);
+  }
+
+  cerrarForm(): void {
+    this.formAbierto.set(false);
+  }
+
+  ivaEstimado(): number {
+    const importe = Number(this.nueva.importe) || 0;
+    return Math.min(Math.round(importe * 21) / 100, 999.99);
+  }
+
+  crear(): void {
+    this.datos.altaFactura(this.nueva).subscribe({
+      next: (r: any) => {
+        this.formAbierto.set(false);
+        this.error.set('');
+        this.mensaje.set(`Factura ${r.nroFactura} creada`);
+        this.cargar(1);
+      },
+      error: (e) => this.error.set(mensajeDeError(e)),
+    });
+  }
+
+  borrar(f: Factura): void {
+    if (!confirm(`¿Borrar la factura ${f.NroFactura} de ${f.cliente} por ${formatoPesos(f.Importe)}?`)) return;
+    this.mensaje.set('');
+    this.datos.bajaFactura(f.NroFactura).subscribe({
+      next: () => {
+        this.mensaje.set(`Factura ${f.NroFactura} borrada`);
         this.cargar(this.pagina()?.pagina ?? 1);
       },
       error: (e) => this.error.set(mensajeDeError(e)),

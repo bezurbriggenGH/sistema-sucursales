@@ -1,7 +1,15 @@
 <section class="branches-container">
   <div class="branches-header">
-    <h2>Nuestras Sucursales</h2>
-    <p>Visualiza y administra la información de las sedes operativas de la empresa.</p>
+    <div>
+      <h2>Nuestras Sucursales</h2>
+      <p>Visualiza y administra la información de las sedes operativas de la empresa.</p>
+    </div>
+    @if (esAdmin()) {
+      <button class="btn-nueva" (click)="nueva()" [disabled]="editando() === 0">
+        <svg class="ico" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Nueva sucursal
+      </button>
+    }
   </div>
 
   @if (!logueado()) {
@@ -20,26 +28,43 @@
     <p class="cargando">Cargando sucursales…</p>
   }
 
+  <!-- Formulario compartido para agregar y editar -->
+  <ng-template #formulario>
+    <form class="edit-form" (ngSubmit)="guardar()">
+      <h4>{{ form.idSucursal === 0 ? 'Nueva sucursal' : 'Editar sucursal' }}</h4>
+      <label>Nombre <input name="nombre" [(ngModel)]="form.nombre" required /></label>
+      <label>Ciudad <input name="ciudad" [(ngModel)]="form.ciudad" required /></label>
+      <label>Dirección <input name="direccion" [(ngModel)]="form.direccion" required /></label>
+      <label>Empleados <input name="cantempleado" type="number" min="0" [(ngModel)]="form.cantempleado" required /></label>
+      <div class="form-actions">
+        <button type="button" class="btn-sec" (click)="cancelar()">Cancelar</button>
+        <button type="submit" class="btn-pri">Guardar</button>
+      </div>
+    </form>
+  </ng-template>
+
   <div class="branches-grid">
+    @if (editando() === 0) {
+      <div class="branch-card nueva">
+        <ng-container [ngTemplateOutlet]="formulario" />
+      </div>
+    }
+
     @for (s of suc(); track s.idSucursal) {
       <div class="branch-card">
 
         @if (editando() === s.idSucursal) {
-          <form class="edit-form" (ngSubmit)="guardar()">
-            <label>Nombre <input name="nombre" [(ngModel)]="form.nombre" required /></label>
-            <label>Ciudad <input name="ciudad" [(ngModel)]="form.ciudad" required /></label>
-            <label>Dirección <input name="direccion" [(ngModel)]="form.direccion" required /></label>
-            <label>Empleados <input name="cantempleado" type="number" min="0" [(ngModel)]="form.cantempleado" required /></label>
-            <div class="form-actions">
-              <button type="button" class="btn-sec" (click)="cancelar()">Cancelar</button>
-              <button type="submit" class="btn-pri">Guardar</button>
-            </div>
-          </form>
+          <ng-container [ngTemplateOutlet]="formulario" />
         } @else {
           @if (esAdmin()) {
-            <button class="btn-edit" (click)="editar(s)" title="Editar sucursal">
-              <svg class="ico" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-            </button>
+            <div class="card-acciones">
+              <button class="btn-edit" (click)="editar(s)" title="Editar sucursal">
+                <svg class="ico" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+              </button>
+              <button class="btn-edit peligro" (click)="borrar(s)" title="Borrar sucursal">
+                <svg class="ico" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+              </button>
+            </div>
           }
 
           <div class="branch-info">

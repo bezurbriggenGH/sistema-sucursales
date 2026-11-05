@@ -6,7 +6,12 @@
 
 /* Encabezado */
 .branches-header {
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .branches-header h2 {
@@ -125,10 +130,14 @@
 .cargando { color: var(--text-muted); }
 
 /* Edición (administrador) */
-.btn-edit {
+.card-acciones {
   position: absolute;
   top: 1rem;
   right: 1rem;
+  display: flex;
+  gap: 0.35rem;
+}
+.btn-edit {
   display: flex;
   padding: 0.4rem;
   font-size: 1rem;
@@ -177,3 +186,29 @@
 }
 .btn-pri { border: none; background: var(--accent); color: #fff; }
 .btn-sec { border: 1px solid var(--border); background: transparent; color: var(--text-muted); }
+
+.btn-edit.peligro:hover { color: var(--red); border-color: var(--red); }
+
+.edit-form h4 {
+  margin: 0 0 0.25rem 0;
+  color: var(--text-dark);
+}
+
+.branch-card.nueva {
+  border-color: var(--accent);
+}
+
+.btn-nueva {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #fff;
+  background: var(--accent);
+  cursor: pointer;
+}
+.btn-nueva:disabled { opacity: 0.5; cursor: default; }

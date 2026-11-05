@@ -5,6 +5,11 @@
 
 .facturas-header {
   margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .facturas-header h2 {
@@ -244,4 +249,81 @@ tbody tr:hover {
   margin-top: 1.25rem;
   color: var(--text-muted);
   font-size: 0.9rem;
+}
+
+/* Nueva factura */
+.btn-nueva {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-pri:disabled { opacity: 0.5; cursor: default; }
+
+.nueva-factura {
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+}
+.nueva-factura h3 {
+  margin: 0 0 1rem 0;
+  color: var(--text-dark);
+  font-size: 1.1rem;
+}
+.nueva-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.75rem;
+}
+.nueva-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.nueva-grid input,
+.nueva-grid select {
+  padding: 0.5rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+.nueva-grid input:focus,
+.nueva-grid select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.nueva-pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+
+/* Borrar factura */
+.acciones {
+  width: 1%;
+  white-space: nowrap;
+}
+.btn-icon {
+  display: inline-flex;
+  padding: 0.35rem;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.btn-icon:hover {
+  color: var(--red);
+  border-color: var(--red);
 }

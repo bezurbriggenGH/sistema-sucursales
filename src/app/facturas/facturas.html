@@ -1,8 +1,51 @@
 <section class="facturas-container">
   <div class="facturas-header">
-    <h2>Facturas</h2>
-    <p>Consultá las facturas emitidas por sucursal, cliente, estado y fecha.</p>
+    <div>
+      <h2>Facturas</h2>
+      <p>Consultá las facturas emitidas por sucursal, cliente, estado y fecha.</p>
+    </div>
+    @if (esAdmin()) {
+      <button class="btn-pri btn-nueva" (click)="abrirForm()" [disabled]="formAbierto()">
+        <svg class="ico" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Nueva factura
+      </button>
+    }
   </div>
+
+  <!-- Nueva factura (administrador) -->
+  @if (formAbierto()) {
+    <form class="nueva-factura" (ngSubmit)="crear()">
+      <h3>Nueva factura</h3>
+      <div class="nueva-grid">
+        <label>Fecha <input type="date" name="nFecha" [(ngModel)]="nueva.fecha" required /></label>
+        <label>Cliente
+          <select name="nCliente" [(ngModel)]="nueva.idCliente" required>
+            <option value="" disabled>Elegí un cliente</option>
+            @for (c of clientes(); track c.idCliente) { <option [value]="c.idCliente">{{ c.apellido }}, {{ c.nombre }}</option> }
+          </select>
+        </label>
+        <label>Sucursal
+          <select name="nSucursal" [(ngModel)]="nueva.idSucursal" required>
+            <option value="" disabled>Elegí una sucursal</option>
+            @for (s of sucursales(); track s.idSucursal) { <option [value]="s.idSucursal">{{ s.nombre }}</option> }
+          </select>
+        </label>
+        <label>Importe ($) <input type="number" name="nImporte" min="1" step="0.01" [(ngModel)]="nueva.importe" required /></label>
+        <label>Estado
+          <select name="nEstado" [(ngModel)]="nueva.estado">
+            @for (e of estados; track e) { <option [value]="e">{{ e }}</option> }
+          </select>
+        </label>
+      </div>
+      <div class="nueva-pie">
+        <span class="texto-muted">IVA (21 %): {{ pesos(ivaEstimado()) }}</span>
+        <div class="filtros-acciones">
+          <button type="button" class="btn-sec" (click)="cerrarForm()">Cancelar</button>
+          <button type="submit" class="btn-pri">Crear factura</button>
+        </div>
+      </div>
+    </form>
+  }
 
   <!-- Filtros -->
   <form class="filtros" (ngSubmit)="aplicar()">
@@ -65,6 +108,7 @@
             <th>Sucursal</th>
             <th class="num">Importe</th>
             <th>Estado</th>
+            @if (esAdmin()) { <th></th> }
           </tr>
         </thead>
         <tbody>
@@ -84,9 +128,16 @@
                   <span class="estado-badge estado-{{ f.Estado }}">{{ f.Estado }}</span>
                 }
               </td>
+              @if (esAdmin()) {
+                <td class="acciones">
+                  <button class="btn-icon" (click)="borrar(f)" title="Borrar factura">
+                    <svg class="ico" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                  </button>
+                </td>
+              }
             </tr>
           } @empty {
-            <tr><td colspan="6" class="vacio">No hay facturas con esos filtros.</td></tr>
+            <tr><td colspan="7" class="vacio">No hay facturas con esos filtros.</td></tr>
           }
         </tbody>
       </table>
